@@ -129,9 +129,12 @@ body{min-height:100svh;display:grid;place-items:center;background:#211c19}
 .story-screen .pill{max-width:100%;white-space:normal;line-height:1.5;letter-spacing:1px;padding:14px 22px;margin-top:28px;flex-shrink:0;text-align:center}
 .story-with-memory{padding-top:70px}
 .story-with-memory .memory{margin:0 auto 24px;flex-shrink:0}
-.memory-world{height:100%;display:flex;flex-direction:column;overflow-y:auto;padding-top:72px}
-.world-copy{flex-shrink:0;padding:0 9% 12px;color:#241c18}
-.world-copy h2{font:500 clamp(18px,5.2cqw,23px)/1.4 Mont;margin:0 0 12px}
-.world-copy p{font:400 13px/1.65 Mont;margin:0}
-.memory-world .world{flex:1 0 240px;height:auto;min-height:240px}
-.memory-world .world-instruction{font-size:11px;line-height:1.5;padding:12px 8%;bottom:0}
+/* Bubble screen: a quiet text header and softly faded scene edges. */
+.memory-world{height:100%;display:flex;flex-direction:column;overflow-y:auto;padding-top:76px}
+.memory-world .world-copy{flex-shrink:0;padding:0 9% 8px;color:#30251f;text-align:center}
+.memory-world .world-copy h2{max-width:32ch;margin:0 auto 16px;font:400 clamp(18px,5cqw,22px)/1.45 Mont;letter-spacing:-.015em;text-wrap:balance}
+.memory-world .world-copy p{max-width:38ch;margin:0 auto;font:400 12px/1.75 Mont;text-wrap:pretty}
+.memory-world .world{flex:1 0 260px;height:auto;min-height:260px}
+.memory-world .bubble-space{-webkit-mask-image:linear-gradient(to bottom,transparent,#000 32px,#000 calc(100% - 95px),transparent calc(100% - 40px));mask-image:linear-gradient(to bottom,transparent,#000 32px,#000 calc(100% - 95px),transparent calc(100% - 40px))}
+.memory-world .world-instruction{left:24px;right:24px;bottom:max(18px,env(safe-area-inset-bottom));padding:12px 16px;border:1px solid #f5e8cf66;border-radius:18px;background:#f4e6ccdc;color:#30251f;font:500 11px/1.6 Mont;text-shadow:none;text-wrap:balance;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+@media(max-height:600px){.memory-world{padding-top:68px}.memory-world .world-copy h2{font-size:18px;margin-bottom:10px}.memory-world .world-copy p{font-size:11px;line-height:1.6}.memory-world .world{min-height:220px;flex-basis:220px}}
