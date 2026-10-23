@@ -1,6 +1,8 @@
 // Preserve the complete layout while revealing each character in reading order.
 function typewrite(elements){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
   let character=0;
+  const letters=[];
   for(const el of elements){
     el.setAttribute('aria-label',el.innerText);
     const walker=document.createTreeWalker(el,NodeFilter.SHOW_TEXT);
@@ -11,7 +13,8 @@ function typewrite(elements){
         const span=document.createElement('span');
         span.className='type-character';span.textContent=letter;
         span.setAttribute('aria-hidden','true');
-        span.style.setProperty('--type-delay',`${character++*46}ms`);
+        span.style.opacity='0';
+        letters.push({span,delay:character++*46});
         fragment.append(span);
       }
       node.replaceWith(fragment);
@@ -19,6 +22,17 @@ function typewrite(elements){
     el.classList.add('typewriting');
     character+=6;
   }
+  // One timeline reveals real text spans, avoiding tiny CSS animations on iOS.
+  const start=performance.now();
+  let next=0;
+  function revealLetters(now){
+    if(!letters.length||!letters[0].span.isConnected)return;
+    while(next<letters.length&&letters[next].delay<=now-start){
+      letters[next++].span.style.opacity='1';
+    }
+    if(next<letters.length)requestAnimationFrame(revealLetters);
+  }
+  requestAnimationFrame(revealLetters);
 }
 
 async function enterMemories(){
